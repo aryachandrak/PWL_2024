@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//menggunakan callback function
+//Basic Routing
 Route::get('/hello', function() {
     return 'Hello World';
 });
@@ -34,10 +34,12 @@ Route:: get('/about', function(){
     return "Arya Chandra Kusuma 2241720228";
 });
 
+//Route Parameters
 Route::get('/user/{name}', function($name){
     return "Nama saya ".$name;
 });
 
+//2 parameters
 Route::get('/posts/{post}/comments/{comment}', function($postId, $commentId){
     return "Post ke-".$postId." Komentar ke-: ".$commentId;
 });
@@ -46,10 +48,12 @@ Route::get('/articles/{id}', function($id){
     return "Halaman Artikel dengan ID ".$id;
 });
 
+//Optional parameters
 Route::get('/user/{name?}', function ($name='John'){
     return "Nama saya ".$name;
 });
 
+//Route name
 Route::get('/user/profile', function(){
 
 })->name('namaprofile');
