@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,15 +14,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::resource('photos', PhotoController::class)->only(['index', 'show']);
+Route::resource('photos', PhotoController::class)->except(['create', 'store', 'update', 'destroy']);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class,'index']);
 
 //Basic Routing
-Route::get('/hello', function() {
-    return 'Hello World';
-});
+Route::get('/hello', [WelcomeController::class,'hello']);
 
 Route::get('/world', function() {
     return 'World';
@@ -30,9 +30,7 @@ Route::get('/welcome', function(){
     return "Selamat Datang";
 });
 
-Route:: get('/about', function(){
-    return "Arya Chandra Kusuma 2241720228";
-});
+Route:: get('/about', [PageController::class,'about']);
 
 //Route Parameters
 Route::get('/user/{name}', function($name){
@@ -44,12 +42,10 @@ Route::get('/posts/{post}/comments/{comment}', function($postId, $commentId){
     return "Post ke-".$postId." Komentar ke-: ".$commentId;
 });
 
-Route::get('/articles/{id}', function($id){
-    return "Halaman Artikel dengan ID ".$id;
-});
+Route::get('/articles/{id}', [PageController::class,'articles']);
 
 //Optional parameters
-Route::get('/user/{name?}', function ($name='John'){
+Route::get('/user/{name?}', function ($name="John"){
     return "Nama saya ".$name;
 });
 
