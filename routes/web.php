@@ -54,3 +54,5 @@ Route::get('/user/profile', function(){
 
 })->name('namaprofile');
 
+
+Route::get('/greeting', [WelcomeController::class,'greeting']);
